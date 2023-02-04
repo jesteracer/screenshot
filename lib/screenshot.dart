@@ -28,7 +28,7 @@ class ScreenshotController {
     String directory, {
     String? fileName,
     double? pixelRatio,
-    Duration delay = const Duration(milliseconds: 20),
+    Duration delay = const Duration(milliseconds: 10),
   }) async {
     Uint8List? content = await capture(
       pixelRatio: pixelRatio,
@@ -41,7 +41,7 @@ class ScreenshotController {
 
   Future<Uint8List?> capture({
     double? pixelRatio,
-    Duration delay = const Duration(milliseconds: 20),
+    Duration delay = const Duration(milliseconds: 10),
   }) {
     //Delay is required. See Issue https://github.com/flutter/flutter/issues/22308
     return new Future.delayed(delay, () async {
@@ -65,7 +65,7 @@ class ScreenshotController {
 
   Future<ui.Image?> captureAsUiImage(
       {double? pixelRatio: 1,
-      Duration delay: const Duration(milliseconds: 20)}) {
+      Duration delay: const Duration(milliseconds: 10)}) {
     //Delay is required. See Issue https://github.com/flutter/flutter/issues/22308
     return new Future.delayed(delay, () async {
       try {
@@ -98,7 +98,7 @@ class ScreenshotController {
   ///
   Future<Uint8List> captureFromWidget(
     Widget widget, {
-    Duration delay: const Duration(seconds: 1),
+    Duration delay: const Duration(milliseconds: 10),
     double? pixelRatio,
     BuildContext? context,
     Size? targetSize,
@@ -117,7 +117,7 @@ class ScreenshotController {
 
   static Future<ui.Image> widgetToUiImage(
     Widget widget, {
-    Duration delay: const Duration(seconds: 1),
+    Duration delay: const Duration(milliseconds: 10),
     double? pixelRatio,
     BuildContext? context,
     Size? targetSize,
@@ -245,14 +245,12 @@ class ScreenshotController {
 
     } while (isDirty && retryCounter >= 0);
     try {
-
-      /// Dispose All widgets 
+      /// Dispose All widgets
       rootElement.visitChildren((Element element) {
         rootElement.deactivateChild(element);
       });
       buildOwner.finalizeTree();
     } catch (e) {}
-
 
     return image; // Adapted to directly return the image and not the Uint8List
   }
